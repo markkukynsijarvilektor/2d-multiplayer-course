@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://cptovqnmaae8k"]
+
+[ext_resource type="Script" uid="uid://1uvarymu1ti6" path="res://ui/main_menu/main_menu.gd" id="1_uhj5c"]
+
+[node name="MainMenu" type="Control" unique_id=1483353045]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uhj5c")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1036008685]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.5
+offset_top = -15.5
+offset_right = 44.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=489531312]
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=1111338277]
+layout_mode = 2
+text = "Play"
+
+[node name="HostButton" type="Button" parent="HBoxContainer/VBoxContainer" unique_id=1341141842]
+layout_mode = 2
+text = "Host"
+
+[connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_mouse_exited"]
