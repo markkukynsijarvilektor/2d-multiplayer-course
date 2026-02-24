@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cxgeu56nx8jw0"]
 
 [ext_resource type="Script" uid="uid://k5ac861n1jdb" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://dea55va7q7xfs" path="res://entities/enemy/enemy.tscn" id="2_0xm2m"]
 
 [node name="Main" type="Node" unique_id=206751777]
 script = ExtResource("1_ig7tw")
@@ -8,3 +9,6 @@ script = ExtResource("1_ig7tw")
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1357761805]
 _spawnable_scenes = PackedStringArray("uid://cmsm71jq22qef")
 spawn_path = NodePath("..")
+
+[node name="Enemy" parent="." unique_id=1859531549 instance=ExtResource("2_0xm2m")]
+position = Vector2(242, 152)
