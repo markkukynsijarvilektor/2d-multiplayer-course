@@ -23,7 +23,7 @@ motion_mode = 1
 script = ExtResource("1_symyc")
 
 [node name="PlayerInputSynchronizerComponent" parent="." unique_id=300313273 node_paths=PackedStringArray("aim_root") instance=ExtResource("2_abrql")]
-aim_root = NodePath("../WeaponRoot")
+aim_root = NodePath("../Visuals/WeaponRoot")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1728634422]
 replication_config = SubResource("SceneReplicationConfig_abrql")
@@ -35,19 +35,21 @@ max_health = 5
 wait_time = 0.125
 one_shot = true
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=670857480]
+[node name="Visuals" type="Node2D" parent="." unique_id=145670036]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals" unique_id=670857480]
 texture = ExtResource("3_sglur")
 centered = false
-offset = Vector2(-9, -26)
+offset = Vector2(-8, -26)
 
-[node name="WeaponRoot" type="Node2D" parent="." unique_id=1102554182]
+[node name="WeaponRoot" type="Node2D" parent="Visuals" unique_id=1102554182]
 position = Vector2(0, -9)
 
-[node name="Sprite2D" type="Sprite2D" parent="WeaponRoot" unique_id=565829011]
+[node name="Sprite2D" type="Sprite2D" parent="Visuals/WeaponRoot" unique_id=565829011]
 position = Vector2(6, 0)
 texture = ExtResource("4_bls4j")
 centered = false
-offset = Vector2(-15, -6)
+offset = Vector2(-13, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1700764996]
 visible = false
