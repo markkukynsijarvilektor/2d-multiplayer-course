@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var fire_rate_timer: Timer = $FireRateTimer
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var visuals: Node2D = $Visuals
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var bullet_scene: PackedScene = preload("uid://cmsm71jq22qef")
 
@@ -21,7 +22,7 @@ func _process(_delta: float) -> void:
 		velocity = player_input_synchronizer_component.movement_vector * 100
 		move_and_slide()
 		if player_input_synchronizer_component.is_attack_pressed:
-			try_create_bullet()
+			try_fire()
 
 func update_aim_position():
 	var aim_vector = player_input_synchronizer_component.aim_vector
@@ -30,7 +31,7 @@ func update_aim_position():
 	visuals.scale = Vector2.ONE if aim_vector.x >= 0 else Vector2(-1, 1)
 	weapon_root.look_at(aim_position)
 
-func try_create_bullet():
+func try_fire():
 	if !fire_rate_timer.is_stopped():
 		return
 	
@@ -39,6 +40,16 @@ func try_create_bullet():
 	bullet.start(player_input_synchronizer_component.aim_vector)
 	get_parent().add_child(bullet, true)
 	fire_rate_timer.start()
+	
+	# Using RPC here: any player-scenes on each game-session with my peer-id: Do some gunfire animation
+	play_fire_effects.rpc()
+
+
+@rpc("authority", "call_local", "unreliable")
+func play_fire_effects():
+	if animation_player.is_playing():
+		animation_player.stop()
+	animation_player.play("fire")
 
 func _on_died():
 	print("Player died")
