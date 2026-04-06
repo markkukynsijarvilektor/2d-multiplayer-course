@@ -2,6 +2,7 @@ class_name EnemyManager
 extends Node
 
 signal round_changed(round_number: int)
+signal round_completed
 
 const ROUND_BASE_TIME : int = 10
 const ROUND_GROWTH : int = 5
@@ -49,7 +50,9 @@ func synchronize(to_peer_id: int = -1):
 
 @rpc("authority", "call_remote", "reliable")
 func _synchronize(data: Dictionary):
-	round_timer.wait_time = data["round_timer_time_left"]
+	var wait_time: float = data["round_timer_time_left"]
+	if wait_time > 0:
+		round_timer.wait_time = data["round_timer_time_left"]
 	if data["round_timer_is_running"]:
 		round_timer.start()
 	round_count = data["round_count"]
@@ -70,7 +73,7 @@ func check_round_completed():
 	if !round_timer.is_stopped():
 		return
 	if spawned_enemies == 0:
-		print("round complete")
+		round_completed.emit()
 		begin_round()
 
 func get_random_spawn_position() -> Vector2:

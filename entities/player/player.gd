@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+signal died
+
 @onready var player_input_synchronizer_component: PlayerInputSynchronizerComponent = $PlayerInputSynchronizerComponent
 @onready var weapon_root: Node2D = $Visuals/WeaponRoot
 @onready var fire_rate_timer: Timer = $FireRateTimer
@@ -16,7 +18,9 @@ var input_multiplayer_authority : int
 
 func _ready() -> void:
 	player_input_synchronizer_component.set_multiplayer_authority(input_multiplayer_authority)
-	health_component.died.connect(_on_died)
+	
+	if is_multiplayer_authority():
+		health_component.died.connect(_on_died)
 	
 func _process(_delta: float) -> void:
 	update_aim_position()
@@ -59,5 +63,7 @@ func play_fire_effects():
 	get_parent().add_child(muzzle_flash)
 
 func _on_died():
-	print("Player died")
+	died.emit()
+	queue_free()
+
 	
